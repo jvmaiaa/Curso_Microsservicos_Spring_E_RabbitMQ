@@ -11,6 +11,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfiguration {
 
+    @Value("${rabbitmq.propostapendente.exchange}")
+    private String exchange;
+
     @Bean
         public Queue criarFilaPropostaPendenteMsAnaliseCredito(){
         return QueueBuilder.durable("proposta-pendente.ms-analise-credito").build();
@@ -43,7 +46,7 @@ public class RabbitMQConfiguration {
 
     @Bean
     public FanoutExchange criarFanoutExchangePropostaPendente(){
-        return ExchangeBuilder.fanoutExchange("proposta-pendente.ex").build();
+        return ExchangeBuilder.fanoutExchange(exchange).build();
     }
 
     @Bean
